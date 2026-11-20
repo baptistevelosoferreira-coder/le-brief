@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Brief — Inscription</title>
+<meta name="description" content="Chaque matin, l'essentiel du sport qui te concerne, résumé en français. Gratuit.">
+<meta name="theme-color" content="#1f8a4c">
+<meta property="og:title" content="Le Brief — la newsletter sport du matin">
+<meta property="og:description" content="Chaque matin, l'essentiel du sport qui te concerne, les scores de la veille et le programme du jour. Gratuit.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231f8a4c'/><text x='50' y='70' font-family='Helvetica,Arial' font-weight='800' font-size='60' text-anchor='middle' fill='white'>B</text></svg>">
+<style>
+  /* Même style que la newsletter : façon appli de sport (fond noir, dégradé vert, cartes arrondies) */
+  :root {
+    --noir: #000000;
+    --carte: #1c1c1e;
+    --carte-2: #2c2c2e;
+    --separateur: #38383a;
+    --blanc: #ffffff;
+    --gris: #8e8e93;
+    --gris-clair: #d1d1d6;
+    --vert: #1f8a4c;
+    --vert-vif: #30d158;
+    --rouge: #ff453a;
+    --police: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--noir); color: var(--blanc); font-family: var(--police); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .conteneur { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  .surtitre { font-size: 13px; font-weight: 600; color: var(--gris-clair); }
+  .point { color: var(--vert-vif); }
+
+  /* ---------- En-tête : dégradé vert comme l'appli ---------- */
+  .entete { background: linear-gradient(180deg, var(--vert) 0%, #0d3d22 55%, var(--noir) 100%); padding-bottom: 20px; }
+  .barre-haut { font-size: 13px; color: rgba(255,255,255,.75); }
+  .barre-haut .conteneur { display: flex; justify-content: space-between; padding-top: 14px; }
+  .titre-journal .conteneur { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 14px; }
+  .logo { font-weight: 800; font-size: clamp(38px, 6vw, 52px); letter-spacing: -1.5px; text-decoration: none; }
+  .nav-lien { font-size: 15px; font-weight: 600; text-decoration: none; padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25); white-space: nowrap; }
+  .nav-lien:hover { background: rgba(255,255,255,.26); }
+
+  /* ---------- Accroche ---------- */
+  .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; padding: 30px 0 40px; align-items: center; }
+  h1 { font-weight: 800; font-size: clamp(38px, 5.4vw, 62px); line-height: 1.04; letter-spacing: -1.5px; margin: 10px 0 18px; }
+  .chapo { font-size: 19px; line-height: 1.5; color: var(--gris-clair); margin: 0 0 28px; max-width: 540px; }
+  .chapo b { color: var(--blanc); }
+  .bouton { display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 0; cursor: pointer; text-decoration: none; background: var(--blanc); color: var(--noir); font-family: var(--police); font-weight: 700; font-size: 17px; padding: 15px 28px; border-radius: 999px; transition: transform .15s, background .15s; }
+  .bouton:hover { transform: translateY(-1px); background: #e8e8ed; }
+  .preuves { display: flex; gap: 18px; margin-top: 22px; font-size: 14px; color: var(--gris); flex-wrap: wrap; }
+  .preuves span::before { content: "✓ "; color: var(--vert-vif); font-weight: 700; }
+
+  /* Aperçu : des widgets de scores comme dans la newsletter */
+  .apercu { display: grid; gap: 10px; }
+  .widget { border-radius: 20px; padding: 12px 16px 14px; }
+  .widget .ligue { text-align: center; font-size: 12px; font-weight: 600; color: rgba(255,255,255,.75); }
+  .widget .match { display: grid; grid-template-columns: 64px 44px 1fr 44px 64px; align-items: center; text-align: center; margin-top: 4px; }
+  .widget .equipe { font-size: 12px; }
+  .widget .rond { width: 34px; height: 34px; line-height: 34px; margin: 0 auto 4px; border-radius: 50%; background: rgba(255,255,255,.16); font-size: 11px; font-weight: 700; }
+  .widget .score { font-size: 32px; font-weight: 700; }
+  .widget .score.perdant { color: rgba(255,255,255,.55); }
+  .widget .statut { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.75); }
+  .widget-info { background: var(--carte); border-radius: 20px; padding: 14px 16px; }
+  .widget-info .pastille { display: inline-block; width: 8px; height: 8px; border-radius: 4px; background: #1a7f37; margin-right: 6px; }
+  .widget-info b { display: block; font-size: 17px; margin-top: 4px; }
+
+  /* ---------- Atouts ---------- */
+  .atouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .atout { background: var(--carte); border-radius: 20px; padding: 22px; }
+  .atout .gros-num { font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -1px; color: var(--vert-vif); }
+  .atout:nth-child(2) .gros-num { color: #64d2ff; }
+  .atout:nth-child(3) .gros-num { color: #ff9f0a; }
+  .atout h3 { font-size: 19px; margin: 10px 0 6px; }
+  .atout p { margin: 0; color: var(--gris-clair); font-size: 15px; }
+
+  /* ---------- Sections ---------- */
+  .section { padding: 56px 0 8px; }
+  .rubrique { font-weight: 800; font-size: clamp(28px, 4vw, 40px); letter-spacing: -1px; line-height: 1.1; margin: 0 0 6px; }
+  .section .intro { color: var(--gris); font-size: 17px; margin: 0 0 22px; }
+
+  /* ---------- Formulaire ---------- */
+  .carte-form { max-width: 780px; background: var(--carte); border-radius: 24px; padding: 30px; }
+  .etape { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 700; margin: 0 0 16px; }
+  .etape .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 14px; background: var(--vert); font-size: 14px; }
+  .etape:not(:first-child) { margin-top: 32px; }
+  .champs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .champ { display: flex; flex-direction: column; gap: 6px; }
+  .champ.large { grid-column: 1 / -1; }
+  label.titre { font-size: 14px; font-weight: 600; color: var(--gris-clair); }
+  label.titre em { color: var(--gris); font-style: normal; font-weight: 400; }
+  input[type=text], input[type=email], textarea { font: inherit; font-size: 16px; color: var(--blanc); padding: 13px 14px; border: 1px solid transparent; border-radius: 12px; background: var(--carte-2); width: 100%; transition: border-color .15s, box-shadow .15s; }
+  input::placeholder, textarea::placeholder { color: #6e6e73; }
+  textarea { resize: vertical; min-height: 70px; }
+  input:focus, textarea:focus { outline: none; border-color: var(--vert-vif); box-shadow: 0 0 0 3px rgba(48,209,88,.25); }
+
+  .outils-sports { display: flex; justify-content: space-between; align-items: center; margin: -4px 0 12px; font-size: 13px; color: var(--gris); }
+  .outils-sports button { background: none; border: 0; color: var(--vert-vif); font: inherit; font-weight: 600; cursor: pointer; padding: 0; }
+  .sports { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+  .famille { grid-column: 1 / -1; font-size: 13px; font-weight: 600; color: var(--gris); margin: 12px 0 0; }
+  .famille:first-child { margin-top: 0; }
+  .tuile { position: relative; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; background: var(--carte-2); border-radius: 12px; padding: 12px 14px; font-weight: 600; font-size: 15px; transition: background .12s, transform .1s; }
+  .tuile::before { content: ""; width: 10px; height: 10px; border-radius: 5px; background: var(--c); flex-shrink: 0; }
+  .tuile:active { transform: scale(.98); }
+  .tuile input { position: absolute; opacity: 0; pointer-events: none; }
+  .tuile .nom-sport { white-space: nowrap; }
+  .tuile .coche { margin-left: auto; width: 20px; height: 20px; border-radius: 10px; border: 1.5px solid #636366; flex-shrink: 0; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: transparent; }
+  .tuile.active { background: var(--c); }
+  .tuile.active::before { background: #fff; }
+  .tuile.active .coche { background: #fff; border-color: #fff; color: var(--c); }
+  .tuile input:focus-visible ~ .coche { outline: 2px solid var(--vert-vif); outline-offset: 2px; }
+
+  .choix-format { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .format { background: var(--carte-2); border: 2px solid transparent; border-radius: 14px; padding: 14px 16px; cursor: pointer; position: relative; }
+  .format input { position: absolute; opacity: 0; }
+  .format b { display: block; font-size: 17px; }
+  .format span { font-size: 13px; color: var(--gris); }
+  .format.active { border-color: var(--vert-vif); }
+
+  .consentement { display: flex; gap: 12px; align-items: flex-start; background: var(--carte-2); border-radius: 12px; padding: 14px; font-size: 14px; color: var(--gris-clair); cursor: pointer; }
+  .consentement input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--vert-vif); flex-shrink: 0; }
+  .rgpd { font-size: 13px; color: var(--gris); margin-top: 10px; }
+  .rgpd summary { cursor: pointer; font-weight: 600; }
+  .rgpd ul { margin: 8px 0 0; padding-left: 18px; }
+
+  .erreur { color: var(--rouge); font-size: 13px; font-weight: 600; min-height: 18px; margin-top: 6px; }
+  .champ-cache { position: absolute; left: -9999px; }
+  .envoyer { width: 100%; margin-top: 22px; font-size: 18px; padding: 17px; background: var(--vert-vif); color: var(--noir); }
+  .envoyer:hover { background: #4ade72; }
+  .envoyer[disabled] { opacity: .7; cursor: wait; transform: none; }
+  .rond-envoi { width: 18px; height: 18px; border: 2.5px solid rgba(0,0,0,.25); border-top-color: #000; border-radius: 50%; animation: tourne .7s linear infinite; display: none; }
+  .envoyer[disabled] .rond-envoi { display: inline-block; }
+  @keyframes tourne { to { transform: rotate(360deg); } }
+
+  /* Écran de bienvenue */
+  .bienvenue { display: none; text-align: center; padding: 18px 0 8px; }
+  .bienvenue.visible { display: block; animation: apparait .4s ease; }
+  .bienvenue h3 { font-size: 32px; font-weight: 800; letter-spacing: -.5px; line-height: 1.1; margin: 8px 0 10px; }
+  .bienvenue h3 .accent { color: var(--vert-vif); }
+  .bienvenue p { color: var(--gris-clair); margin: 0 auto; max-width: 460px; font-size: 16px; }
+  .recap { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0 6px; }
+  .recap span { background: var(--c); color: #fff; font-size: 14px; font-weight: 600; padding: 6px 13px; border-radius: 999px; }
+  @keyframes apparait { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .demo { max-width: 780px; margin: 0 0 14px; background: rgba(255,159,10,.14); color: #ffd28a; border-radius: 12px; padding: 11px 14px; font-size: 14px; display: none; }
+
+  /* ---------- Médias ---------- */
+  .medias { display: flex; flex-wrap: wrap; gap: 8px; }
+  .medias span { background: var(--carte); border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 15px; }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width: 780px; background: var(--carte); border-radius: 20px; padding: 4px 20px; }
+  .faq details { border-bottom: 1px solid var(--separateur); padding: 16px 0; }
+  .faq details:last-child { border-bottom: 0; }
+  .faq summary { cursor: pointer; font-size: 17px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "›"; color: var(--gris); font-size: 22px; line-height: 1; transition: transform .2s; }
+  .faq details[open] summary::after { transform: rotate(90deg); }
+  .faq p { color: var(--gris-clair); margin: 10px 0 0; font-size: 15px; }
+
+  footer { margin-top: 64px; text-align: center; color: var(--gris); font-size: 13px; padding: 26px 20px 40px; }
+  footer .logo { font-size: 30px; display: inline-block; margin-bottom: 6px; color: var(--blanc); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 30px; }
+    .atouts { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .nav-lien { padding: 8px 14px; font-size: 14px; }
+    .carte-form { padding: 20px 14px; border-radius: 20px; }
+    .champs, .choix-format { grid-template-columns: 1fr; }
+    .sports { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tuile { min-width: 0; padding: 11px 10px; font-size: 14px; }
+    .tuile .coche { display: none; }
+    .tuile .nom-sport { white-space: normal; min-width: 0; }
+    .widget .match { grid-template-columns: 58px 40px 1fr 40px 58px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="entete">
+  <div class="barre-haut"><div class="conteneur"><span id="date-apercu">Ce matin</span><span>Newsletter gratuite</span></div></div>
+  <header class="titre-journal">
+    <div class="conteneur">
+      <a class="logo" href="#">Le Brief</a>
+      <a class="nav-lien" href="#inscription">S'inscrire</a>
+    </div>
+  </header>
+
+  <div class="conteneur">
+    <section class="hero">
+      <div>
+        <span class="surtitre">Chaque matin dans ta boîte mail</span>
+        <h1>Le sport qui te concerne, sans rien rater<span class="point">.</span></h1>
+        <p class="chapo">
+          Les infos à retenir sur <b>tes</b> sports, sélectionnées parmi les grands médias sportifs,
+          résumées en français, avec les scores de la veille et le programme du jour.
+        </p>
+        <a class="bouton" href="#inscription">Je m'inscris</a>
+        <div class="preuves">
+          <span>100 % gratuit</span>
+          <span>Zéro pub</span>
+          <span>Désinscription en 1 clic</span>
+        </div>
+      </div>
+
+      <div class="apercu" aria-hidden="true">
+        <div class="widget" style="background:#0e4a1f;">
+          <div class="ligue">Ligue des nations</div>
+          <div class="match">
+            <div class="equipe"><div class="rond">BEL</div>Belgique</div>
+            <div class="score perdant">1</div><div class="statut">Final</div><div class="score">2</div>
+            <div class="equipe"><div class="rond">FRA</div>France</div>
+          </div>
+        </div>
+        <div class="widget" style="background:#721418;">
+          <div class="ligue">Top 14</div>
+          <div class="match">
+            <div class="equipe"><div class="rond">TOU</div>Toulouse</div>
+            <div class="score">40</div><div class="statut">Final</div><div class="score perdant">18</div>
+            <div class="equipe"><div class="rond">MON</div>Montpellier</div>
+          </div>
+        </div>
+        <div class="widget-info">
+          <span class="surtitre"><span class="pastille"></span>Football · À la une</span>
+          <b>Le Classique tient toutes ses promesses</b>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<main>
+  <div class="conteneur">
+
+    <section class="atouts">
+      <div class="atout"><div class="gros-num">19</div><h3>Sports au choix</h3><p>Foot, rugby, NFL, F1, cyclisme, MMA… Tu coches les tiens, on ne te parle que de ça.</p></div>
+      <div class="atout"><div class="gros-num">10</div><h3>Infos par jour</h3><p>Une grande info à la une, les autres en résumé ou en brève. Et les scores de la veille.</p></div>
+      <div class="atout"><div class="gros-num">100%</div><h3>Médias sportifs</h3><p>Uniquement des rédactions sportives reconnues, traduites si besoin, avec le lien vers l'article original.</p></div>
+    </section>
+
+    <section class="section" id="inscription">
+      <h2 class="rubrique">Rejoins le Brief</h2>
+      <p class="intro">30 secondes pour t'inscrire. Ta première newsletter arrive un prochain matin.</p>
+
+      <div class="demo" id="bandeau-demo">
+        <b>Mode démo</b> : la page n'est pas encore reliée au tableau des inscriptions.
+        Les inscriptions ne sont pas enregistrées.
+      </div>
+
+      <div class="carte-form">
+        <form id="formulaire" novalidate>
+          <p class="etape"><span class="n">1</span> Qui es-tu ?</p>
+          <div class="champs">
+            <div class="champ">
+              <label class="titre" for="prenom">Prénom</label>
+              <input type="text" id="prenom" name="prenom" autocomplete="given-name" required maxlength="50">
+            </div>
+            <div class="champ">
+              <label class="titre" for="nom">Nom <em>(facultatif)</em></label>
+              <input type="text" id="nom" name="nom" autocomplete="family-name" maxlength="50">
+            </div>
+            <div class="champ">
+              <label class="titre" for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" required maxlength="120" placeholder="prenom.nom@gmail.com">
+            </div>
+            <div class="champ">
+              <label class="titre" for="promo">Formation / promo <em>(facultatif)</em></label>
+              <input type="text" id="promo" name="promo" maxlength="80" placeholder="M2 Marketing Vente">
+            </div>
+          </div>
+          <div class="erreur" id="erreur-identite"></div>
+
+          <p class="etape"><span class="n">2</span> Tes sports</p>
+          <div class="outils-sports">
+            <span id="compteur-sports">Choisis autant de sports que tu veux.</span>
+            <button type="button" id="tout-effacer">Tout décocher</button>
+          </div>
+          <div class="sports" id="sports"></div>
+          <div class="erreur" id="erreur-sports"></div>
+
+          <div class="champ large" style="margin-top:14px;">
+            <label class="titre" for="suggestion">Un sport qui manque ? <em>(facultatif)</em></label>
+            <input type="text" id="suggestion" name="suggestion" maxlength="80" placeholder="Padel, esport, escalade…">
+          </div>
+
+          <div class="champ large" style="margin-top:14px;">
+            <label class="titre" for="equipes">Tes équipes ou joueurs favoris <em>(facultatif)</em></label>
+            <textarea id="equipes" name="equipes" maxlength="300" placeholder="PSG, Stade Toulousain, Chiefs, Wembanyama…"></textarea>
+          </div>
+
+          <p class="etape"><span class="n">3</span> Ton format</p>
+          <div class="choix-format">
+            <label class="format">
+              <input type="radio" name="nombre" value="5">
+              <b>Express</b><span>5 infos, lecture rapide</span>
+            </label>
+            <label class="format active">
+              <input type="radio" name="nombre" value="10" checked>
+              <b>L'édition complète</b><span>10 infos + résultats et programme</span>
+            </label>
+          </div>
+
+          <p class="etape"><span class="n">4</span> C'est parti</p>
+          <label class="consentement">
+            <input type="checkbox" id="consentement">
+            <span>J'accepte de recevoir <b>Le Brief</b> par email et que mes informations soient utilisées uniquement à cette fin.</span>
+          </label>
+          <details class="rgpd">
+            <summary>Comment sont utilisées mes données ?</summary>
+            <ul>
+              <li>Uniquement pour t'envoyer Le Brief selon les sports choisis.</li>
+              <li>Jamais vendues, partagées ou utilisées pour de la publicité.</li>
+              <li>Conservées tant que tu es inscrit·e, supprimées quand tu te désinscris.</li>
+              <li>Désinscription en un clic via le lien présent dans chaque newsletter, ou en répondant simplement à un email.</li>
+            </ul>
+          </details>
+          <div class="erreur" id="erreur-consentement"></div>
+
+          <input class="champ-cache" type="text" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <button class="bouton envoyer" type="submit" id="bouton-envoyer">
+            <span class="rond-envoi"></span><span id="texte-bouton">Je m'inscris</span>
+          </button>
+          <div class="erreur" id="erreur-envoi" style="text-align:center;"></div>
+        </form>
+
+        <div class="bienvenue" id="bienvenue">
+          <span class="surtitre">Inscription confirmée</span>
+          <h3 id="titre-bienvenue">Bienvenue dans le Brief !</h3>
+          <p>Ta première newsletter arrive un prochain matin. Pense à vérifier tes spams la première fois.</p>
+          <div class="recap" id="recap"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="rubrique">Nos sources</h2>
+      <p class="intro">Uniquement des rédactions sportives. Chaque info renvoie vers l'article complet.</p>
+      <div class="medias">
+        <span>L'Équipe</span><span>RMC Sport</span><span>BBC Sport</span><span>CBS Sports</span>
+        <span>Motorsport.com</span><span>Autosport</span><span>Cyclingnews</span><span>MLB.com</span><span>BasketUSA</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="rubrique">Questions fréquentes</h2>
+      <p class="intro">Tout ce qu'il faut savoir avant de t'inscrire.</p>
+      <div class="faq">
+        <details><summary>C'est vraiment gratuit ?</summary><p>Oui, totalement. Pas de pub, pas d'abonnement, pas de carte bancaire.</p></details>
+        <details><summary>D'où viennent les infos ?</summary><p>Uniquement de médias sportifs reconnus : L'Équipe, RMC Sport, BBC Sport, CBS Sports, Motorsport.com, Autosport, Cyclingnews, MLB.com… Chaque info est résumée en français et renvoie vers l'article original.</p></details>
+        <details><summary>Est-ce que je vais recevoir les mêmes infos plusieurs jours de suite ?</summary><p>Non : le Brief garde en mémoire ce qui a déjà été envoyé pendant 30 jours et ne te renvoie jamais une info que tu connais déjà.</p></details>
+        <details><summary>Je peux changer mes sports plus tard ?</summary><p>Oui : réinscris-toi simplement avec la même adresse email, tes choix seront mis à jour.</p></details>
+        <details><summary>Comment me désinscrire ?</summary><p>Un lien de désinscription se trouve en bas de chaque newsletter. Un clic et c'est fait.</p></details>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="logo">Le Brief</div>
+  <div>Projet étudiant · newsletter sportive gratuite et personnalisée</div>
+</footer>
+
+<script>
+  // ===========================================================================
+  //  RÉGLAGE : colle ici l'adresse de ton « Application Web » Google Apps Script
+  //  (voir inscription/README.md). Tant qu'elle est vide, la page est en mode démo.
+  // ===========================================================================
+  const URL_INSCRIPTION = "";
+
+  // Les sports proposés (mêmes codes que dans config.py), rangés par famille
+  const SPORTS = [
+    { code: "football",         nom: "Football",          emoji: "⚽", couleur: "#1a7f37", famille: "Sports collectifs" },
+    { code: "rugby",            nom: "Rugby",             emoji: "🏉", couleur: "#8250df", famille: "Sports collectifs" },
+    { code: "basket",           nom: "Basket",            emoji: "🏀", couleur: "#d1242f", famille: "Sports collectifs" },
+    { code: "handball",         nom: "Handball",          emoji: "🤾", couleur: "#0969da", famille: "Sports collectifs" },
+    { code: "volley",           nom: "Volley",            emoji: "🏐", couleur: "#bf8700", famille: "Sports collectifs" },
+    { code: "nfl",              nom: "NFL",               emoji: "🏈", couleur: "#013369", famille: "Sports US" },
+    { code: "college_football", nom: "College Football",  emoji: "🎓", couleur: "#bc4c00", famille: "Sports US" },
+    { code: "hockey",           nom: "Hockey (NHL)",      emoji: "🏒", couleur: "#24292f", famille: "Sports US" },
+    { code: "baseball",         nom: "Baseball (MLB)",    emoji: "⚾", couleur: "#a40e26", famille: "Sports US" },
+    { code: "tennis",           nom: "Tennis",            emoji: "🎾", couleur: "#9a6700", famille: "Raquette & précision" },
+    { code: "golf",             nom: "Golf",              emoji: "⛳", couleur: "#2da44e", famille: "Raquette & précision" },
+    { code: "f1",               nom: "Formule 1",         emoji: "🏎️", couleur: "#cf222e", famille: "Sports mécaniques" },
+    { code: "moto",             nom: "MotoGP",            emoji: "🏍️", couleur: "#e16f24", famille: "Sports mécaniques" },
+    { code: "cyclisme",         nom: "Cyclisme",          emoji: "🚴", couleur: "#d4a72c", famille: "Endurance & plein air" },
+    { code: "athletisme",       nom: "Athlétisme",        emoji: "🏃", couleur: "#fb8f44", famille: "Endurance & plein air" },
+    { code: "natation",         nom: "Natation",          emoji: "🏊", couleur: "#0550ae", famille: "Endurance & plein air" },
+    { code: "ski",              nom: "Ski & hiver",       emoji: "⛷️", couleur: "#54aeff", famille: "Endurance & plein air" },
+    { code: "voile",            nom: "Voile",             emoji: "⛵", couleur: "#1b7c83", famille: "Endurance & plein air" },
+    { code: "combat",           nom: "Boxe & MMA",        emoji: "🥊", couleur: "#82071e", famille: "Sports de combat" },
+  ];
+
+  const $ = (id) => document.getElementById(id);
+  const modeDemo = !URL_INSCRIPTION;
+  if (modeDemo) $("bandeau-demo").style.display = "block";
+
+  // Date du jour dans le bandeau du haut (ex : « Lundi 28 septembre 2026 »)
+  const aujourdhui = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  $("date-apercu").textContent = aujourdhui.charAt(0).toUpperCase() + aujourdhui.slice(1);
+
+  // Création des tuiles de sports, famille par famille
+  const zoneSports = $("sports");
+  let familleCourante = "";
+  SPORTS.forEach((s) => {
+    if (s.famille !== familleCourante) {
+      familleCourante = s.famille;
+      const titre = document.createElement("div");
+      titre.className = "famille";
+      titre.textContent = s.famille;
+      zoneSports.appendChild(titre);
+    }
+    const tuile = document.createElement("label");
+    tuile.className = "tuile";
+    tuile.style.setProperty("--c", s.couleur);
+    tuile.innerHTML = `<input type="checkbox" name="sports" value="${s.code}">
+      <span class="nom-sport">${s.nom}</span><span class="coche">✓</span>`;
+    const caseACocher = tuile.querySelector("input");
+    caseACocher.addEventListener("change", () => {
+      tuile.classList.toggle("active", caseACocher.checked);
+      $("erreur-sports").textContent = "";
+      majCompteur();
+    });
+    zoneSports.appendChild(tuile);
+  });
+
+  function majCompteur() {
+    const n = zoneSports.querySelectorAll("input:checked").length;
+    $("compteur-sports").textContent = n ? `${n} sport${n > 1 ? "s" : ""} sélectionné${n > 1 ? "s" : ""}` : "Choisis autant de sports que tu veux.";
+  }
+  $("tout-effacer").addEventListener("click", () => {
+    zoneSports.querySelectorAll("input:checked").forEach((c) => { c.checked = false; c.closest(".tuile").classList.remove("active"); });
+    majCompteur();
+  });
+
+  // Choix du format (5 ou 10 infos)
+  document.querySelectorAll(".format input").forEach((radio) => {
+    radio.addEventListener("change", () => {
+      document.querySelectorAll(".format").forEach((f) => f.classList.toggle("active", f.contains(radio) && radio.checked));
+    });
+  });
+
+  // Les messages d'erreur disparaissent dès qu'on corrige
+  ["prenom", "email"].forEach((id) => $(id).addEventListener("input", () => ($("erreur-identite").textContent = "")));
+  $("consentement").addEventListener("change", () => ($("erreur-consentement").textContent = ""));
+
+  // Envoi du formulaire
+  $("formulaire").addEventListener("submit", async (evenement) => {
+    evenement.preventDefault();
+    ["erreur-identite", "erreur-sports", "erreur-consentement", "erreur-envoi"].forEach((id) => ($(id).textContent = ""));
+
+    const f = evenement.target;
+    const sports = [...f.querySelectorAll("input[name=sports]:checked")].map((c) => c.value);
+    const email = f.email.value.trim();
+    let valide = true;
+
+    if (!f.prenom.value.trim()) { $("erreur-identite").textContent = "Indique ton prénom."; valide = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { $("erreur-identite").textContent = "Cette adresse email ne semble pas valide."; valide = false; }
+    if (!sports.length) { $("erreur-sports").textContent = "Choisis au moins un sport."; valide = false; }
+    if (!$("consentement").checked) { $("erreur-consentement").textContent = "Coche la case pour accepter de recevoir la newsletter."; valide = false; }
+    if (!valide) return;
+
+    const donnees = new URLSearchParams({
+      prenom: f.prenom.value.trim(),
+      nom: f.nom.value.trim(),
+      email,
+      promo: f.promo.value.trim(),
+      sports: sports.join(","),
+      equipes: f.equipes.value.trim(),
+      suggestion: f.suggestion.value.trim(),
+      nombre: f.querySelector("input[name=nombre]:checked").value,
+      consentement: "oui",
+      site_web: f.site_web.value,
+    });
+
+    const bouton = $("bouton-envoyer");
+    bouton.disabled = true;
+    $("texte-bouton").textContent = "Inscription en cours…";
+
+    try {
+      if (modeDemo) {
+        await new Promise((r) => setTimeout(r, 900));
+      } else {
+        await envoyer(donnees);
+      }
+      afficherBienvenue(f.prenom.value.trim(), sports);
+    } catch (erreur) {
+      $("erreur-envoi").textContent = "Oups, l'inscription n'a pas pu être enregistrée. Réessaie dans un instant.";
+      bouton.disabled = false;
+      $("texte-bouton").textContent = "Je m'inscris";
+    }
+  });
+
+  async function envoyer(donnees) {
+    let reponse;
+    try {
+      reponse = await fetch(URL_INSCRIPTION, { method: "POST", body: donnees });
+    } catch (e) {
+      // Certains navigateurs bloquent la lecture de la réponse de Google :
+      // on envoie alors sans lire la réponse (l'inscription est quand même enregistrée).
+      await fetch(URL_INSCRIPTION, { method: "POST", body: donnees, mode: "no-cors" });
+      return;
+    }
+    const resultat = await reponse.json().catch(() => ({ ok: reponse.ok }));
+    if (!resultat.ok) throw new Error(resultat.erreur || "refus");
+  }
+
+  function afficherBienvenue(prenom, sports) {
+    $("formulaire").style.display = "none";
+    $("titre-bienvenue").innerHTML = "";
+    $("titre-bienvenue").append("Bienvenue dans le Brief, ");
+    const nomAccent = document.createElement("span");
+    nomAccent.className = "accent";
+    nomAccent.textContent = prenom + " !";
+    $("titre-bienvenue").append(nomAccent);
+    $("recap").innerHTML = SPORTS.filter((s) => sports.includes(s.code))
+      .map((s) => `<span style="--c:${s.couleur}">${s.nom}</span>`).join("");
+    $("bienvenue").classList.add("visible");
+    $("inscription").scrollIntoView({ behavior: "smooth" });
+  }
+</script>
+</body>
+</html>
