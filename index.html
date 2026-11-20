@@ -3,363 +3,449 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Le Brief — Inscription</title>
-<meta name="description" content="Chaque matin, l'essentiel du sport qui te concerne, résumé en français. Gratuit.">
-<meta name="theme-color" content="#1f8a4c">
+<title>Le Brief — la newsletter sport du matin</title>
+<meta name="description" content="Chaque matin vers 8h : les actus sport les plus importantes de tes sports, les scores de la veille et le programme du jour. Gratuit.">
+<meta name="theme-color" content="#07090c">
 <meta property="og:title" content="Le Brief — la newsletter sport du matin">
-<meta property="og:description" content="Chaque matin, l'essentiel du sport qui te concerne, les scores de la veille et le programme du jour. Gratuit.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231f8a4c'/><text x='50' y='70' font-family='Helvetica,Arial' font-weight='800' font-size='60' text-anchor='middle' fill='white'>B</text></svg>">
+<meta property="og:description" content="Les actus qui comptent, les scores et le programme du jour, chaque matin vers 8h. Gratuit.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%231f8a4c'/><text x='50' y='71' font-family='Helvetica,Arial' font-weight='800' font-size='62' text-anchor='middle' fill='white'>B</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* Même style que la newsletter : façon appli de sport (fond noir, dégradé vert, cartes arrondies) */
+  /* Même univers que la newsletter : fond sombre, vert « pelouse », une couleur par sport */
   :root {
-    --noir: #000000;
-    --carte: #1c1c1e;
-    --carte-2: #2c2c2e;
-    --separateur: #38383a;
-    --blanc: #ffffff;
-    --gris: #8e8e93;
-    --gris-clair: #d1d1d6;
+    --fond: #07090c;
+    --carte: #12161b;
+    --carte-2: #1b2027;
+    --bord: rgba(255,255,255,.08);
+    --texte: #f5f7fa;
+    --doux: #a3adba;
+    --discret: #6f7a88;
     --vert: #1f8a4c;
-    --vert-vif: #30d158;
-    --rouge: #ff453a;
-    --police: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --vert-vif: #34d36a;
+    --rouge: #ff4d4d;
+    --police: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --rayon: 20px;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--noir); color: var(--blanc); font-family: var(--police); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--fond); color: var(--texte); font-family: var(--police); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
-  .conteneur { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-  .surtitre { font-size: 13px; font-weight: 600; color: var(--gris-clair); }
-  .point { color: var(--vert-vif); }
+  img { max-width: 100%; }
+  .conteneur { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .etroit { max-width: 760px; }
+  .surtitre { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--vert-vif); }
+  h1, h2, h3 { letter-spacing: -.02em; margin: 0; }
+  h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weight: 800; margin: 10px 0 14px; }
+  .intro { color: var(--doux); font-size: 18px; max-width: 620px; margin: 0 0 40px; }
+  section { padding: 96px 0 0; }
+  .centre { text-align: center; }
+  .centre .intro { margin-left: auto; margin-right: auto; }
 
-  /* ---------- En-tête : dégradé vert comme l'appli ---------- */
-  .entete { background: linear-gradient(180deg, var(--vert) 0%, #0d3d22 55%, var(--noir) 100%); padding-bottom: 20px; }
-  .barre-haut { font-size: 13px; color: rgba(255,255,255,.75); }
-  .barre-haut .conteneur { display: flex; justify-content: space-between; padding-top: 14px; }
-  .titre-journal .conteneur { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 14px; }
-  .logo { font-weight: 800; font-size: clamp(38px, 6vw, 52px); letter-spacing: -1.5px; text-decoration: none; }
-  .nav-lien { font-size: 15px; font-weight: 600; text-decoration: none; padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25); white-space: nowrap; }
-  .nav-lien:hover { background: rgba(255,255,255,.26); }
+  /* ---------- Barre du haut ---------- */
+  .barre { position: sticky; top: 0; z-index: 10; background: rgba(7,9,12,.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--bord); }
+  .barre .conteneur { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; text-decoration: none; letter-spacing: -.02em; }
+  .logo i { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--vert); font-style: normal; font-size: 17px; }
+  .menu { display: flex; align-items: center; gap: 28px; font-size: 15px; color: var(--doux); }
+  .menu a { text-decoration: none; }
+  .menu a:hover { color: var(--texte); }
+  .bouton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; cursor: pointer; text-decoration: none; font-family: var(--police);
+            font-weight: 700; font-size: 16px; padding: 14px 26px; border-radius: 999px; background: var(--vert-vif); color: #04120a; transition: transform .15s, background .15s; }
+  .bouton:hover { transform: translateY(-1px); background: #4be07f; }
+  .bouton.petit { padding: 9px 18px; font-size: 14px; }
+  .bouton.secondaire { background: rgba(255,255,255,.08); color: var(--texte); }
+  .bouton.secondaire:hover { background: rgba(255,255,255,.14); }
 
   /* ---------- Accroche ---------- */
-  .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; padding: 30px 0 40px; align-items: center; }
-  h1 { font-weight: 800; font-size: clamp(38px, 5.4vw, 62px); line-height: 1.04; letter-spacing: -1.5px; margin: 10px 0 18px; }
-  .chapo { font-size: 19px; line-height: 1.5; color: var(--gris-clair); margin: 0 0 28px; max-width: 540px; }
-  .chapo b { color: var(--blanc); }
-  .bouton { display: inline-flex; align-items: center; justify-content: center; gap: 12px; border: 0; cursor: pointer; text-decoration: none; background: var(--blanc); color: var(--noir); font-family: var(--police); font-weight: 700; font-size: 17px; padding: 15px 28px; border-radius: 999px; transition: transform .15s, background .15s; }
-  .bouton:hover { transform: translateY(-1px); background: #e8e8ed; }
-  .preuves { display: flex; gap: 18px; margin-top: 22px; font-size: 14px; color: var(--gris); flex-wrap: wrap; }
-  .preuves span::before { content: "✓ "; color: var(--vert-vif); font-weight: 700; }
+  .hero { position: relative; padding: 72px 0 24px; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: -40% -10% auto; height: 620px; background: radial-gradient(closest-side, rgba(31,138,76,.45), transparent); pointer-events: none; }
+  .hero .conteneur { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.04; font-weight: 800; margin: 14px 0 20px; }
+  h1 em { font-style: normal; color: var(--vert-vif); }
+  .chapo { font-size: 20px; color: var(--doux); margin: 0 0 32px; max-width: 540px; }
+  .chapo b { color: var(--texte); font-weight: 600; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .atouts-courts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 28px; font-size: 15px; color: var(--doux); }
+  .atouts-courts span::before { content: "✓"; color: var(--vert-vif); font-weight: 800; margin-right: 8px; }
 
-  /* Aperçu : des widgets de scores comme dans la newsletter */
-  .apercu { display: grid; gap: 10px; }
-  .widget { border-radius: 20px; padding: 12px 16px 14px; }
-  .widget .ligue { text-align: center; font-size: 12px; font-weight: 600; color: rgba(255,255,255,.75); }
-  .widget .match { display: grid; grid-template-columns: 64px 44px 1fr 44px 64px; align-items: center; text-align: center; margin-top: 4px; }
-  .widget .equipe { font-size: 12px; }
-  .widget .rond { width: 34px; height: 34px; line-height: 34px; margin: 0 auto 4px; border-radius: 50%; background: rgba(255,255,255,.16); font-size: 11px; font-weight: 700; }
-  .widget .score { font-size: 32px; font-weight: 700; }
-  .widget .score.perdant { color: rgba(255,255,255,.55); }
-  .widget .statut { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.75); }
-  .widget-info { background: var(--carte); border-radius: 20px; padding: 14px 16px; }
-  .widget-info .pastille { display: inline-block; width: 8px; height: 8px; border-radius: 4px; background: #1a7f37; margin-right: 6px; }
-  .widget-info b { display: block; font-size: 17px; margin-top: 4px; }
+  /* Téléphone : un aperçu de la newsletter */
+  .telephone { justify-self: center; width: 330px; border-radius: 44px; padding: 12px; background: #1c2128; box-shadow: 0 40px 100px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08); }
+  .ecran { border-radius: 34px; overflow: hidden; background: #000; height: 600px; position: relative; }
+  .ecran::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: linear-gradient(transparent, #000); }
+  .ecran-tete { background: linear-gradient(180deg, #1f8a4c, #0d3d22 70%, #000); padding: 38px 18px 18px; }
+  .ecran-tete b { display: block; font-size: 28px; font-weight: 800; letter-spacing: -.03em; }
+  .ecran-tete span { font-size: 12px; color: rgba(255,255,255,.75); }
+  .mini { margin: 0 12px 10px; border-radius: 18px; background: var(--carte); overflow: hidden; }
+  .mini-photo { height: 132px; background: linear-gradient(135deg, #5b6b7d 0%, #1b232c 100%); position: relative; }
+  .mini-photo::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 70% 35%, rgba(255,255,255,.18), transparent 45%); }
+  .mini-corps { padding: 12px 14px 14px; }
+  .pastille { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; padding: 4px 8px; border-radius: 999px; background: var(--rouge); margin-right: 4px; }
+  .pastille.sport { background: #1a7f37; }
+  .mini-corps b { display: block; font-size: 17px; line-height: 1.2; margin-top: 8px; }
+  .mini-score { margin: 0 12px 10px; border-radius: 18px; background: #0e4a26; padding: 10px 14px; }
+  .mini-score small { display: block; text-align: center; font-size: 10px; color: rgba(255,255,255,.7); font-weight: 600; }
+  .mini-ligne { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center; font-size: 11px; }
+  .mini-ligne strong { font-size: 30px; font-weight: 800; padding: 0 12px; }
+  .mini-ligne .perdant { color: rgba(255,255,255,.5); }
+  .rond { display: block; width: 28px; height: 28px; line-height: 28px; margin: 0 auto 3px; border-radius: 50%; background: rgba(255,255,255,.16); font-size: 9px; font-weight: 800; }
+  .mini-chiffre { margin: 0 12px; border-radius: 18px; background: var(--carte); padding: 12px 14px; display: flex; gap: 12px; align-items: center; font-size: 12px; line-height: 1.35; }
+  .mini-chiffre strong { font-size: 32px; font-weight: 800; color: var(--vert-vif); letter-spacing: -1px; white-space: nowrap; }
 
-  /* ---------- Atouts ---------- */
-  .atouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .atout { background: var(--carte); border-radius: 20px; padding: 22px; }
-  .atout .gros-num { font-weight: 800; font-size: 46px; line-height: 1; letter-spacing: -1px; color: var(--vert-vif); }
-  .atout:nth-child(2) .gros-num { color: #64d2ff; }
-  .atout:nth-child(3) .gros-num { color: #ff9f0a; }
-  .atout h3 { font-size: 19px; margin: 10px 0 6px; }
-  .atout p { margin: 0; color: var(--gris-clair); font-size: 15px; }
+  /* ---------- Ce que tu reçois ---------- */
+  .grille { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .bloc { background: var(--carte); border: 1px solid var(--bord); border-radius: var(--rayon); padding: 26px 24px; }
+  .icone { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: rgba(52,211,106,.12); color: var(--vert-vif); margin-bottom: 18px; }
+  .icone svg { width: 24px; height: 24px; }
+  .bloc h3 { font-size: 19px; margin-bottom: 8px; }
+  .bloc p { margin: 0; color: var(--doux); font-size: 15.5px; line-height: 1.55; }
 
-  /* ---------- Sections ---------- */
-  .section { padding: 56px 0 8px; }
-  .rubrique { font-weight: 800; font-size: clamp(28px, 4vw, 40px); letter-spacing: -1px; line-height: 1.1; margin: 0 0 6px; }
-  .section .intro { color: var(--gris); font-size: 17px; margin: 0 0 22px; }
+  /* ---------- Comment on choisit ---------- */
+  .etapes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: etape; }
+  .etape-info { position: relative; padding: 28px 24px 26px; border-radius: var(--rayon); background: linear-gradient(180deg, rgba(31,138,76,.16), rgba(31,138,76,.02)); border: 1px solid rgba(52,211,106,.18); }
+  .etape-info::before { counter-increment: etape; content: counter(etape); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--vert-vif); color: #04120a; font-weight: 800; margin-bottom: 16px; }
+  .etape-info h3 { font-size: 19px; margin-bottom: 8px; }
+  .etape-info p { margin: 0; color: var(--doux); font-size: 15.5px; }
+
+  /* ---------- Sources ---------- */
+  .medias { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .medias span { background: var(--carte); border: 1px solid var(--bord); border-radius: 999px; padding: 10px 18px; font-weight: 600; font-size: 15px; }
 
   /* ---------- Formulaire ---------- */
-  .carte-form { max-width: 780px; background: var(--carte); border-radius: 24px; padding: 30px; }
-  .etape { display: flex; align-items: center; gap: 12px; font-size: 19px; font-weight: 700; margin: 0 0 16px; }
-  .etape .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 14px; background: var(--vert); font-size: 14px; }
-  .etape:not(:first-child) { margin-top: 32px; }
+  .zone-inscription { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: start; }
+  .colle { position: sticky; top: 96px; }
+  .colle ul { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
+  .colle li { display: flex; gap: 12px; color: var(--doux); font-size: 16px; }
+  .colle li::before { content: "✓"; flex-shrink: 0; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgba(52,211,106,.14); color: var(--vert-vif); font-size: 13px; font-weight: 800; }
+  .carte-form { background: var(--carte); border: 1px solid var(--bord); border-radius: 24px; padding: 32px; }
+  .etape { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 700; margin: 0 0 16px; }
+  .etape .n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--vert); font-size: 14px; }
+  .etape:not(:first-child) { margin-top: 34px; padding-top: 30px; border-top: 1px solid var(--bord); }
   .champs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .champ { display: flex; flex-direction: column; gap: 6px; }
+  .champ { display: flex; flex-direction: column; gap: 7px; }
   .champ.large { grid-column: 1 / -1; }
-  label.titre { font-size: 14px; font-weight: 600; color: var(--gris-clair); }
-  label.titre em { color: var(--gris); font-style: normal; font-weight: 400; }
-  input[type=text], input[type=email], textarea { font: inherit; font-size: 16px; color: var(--blanc); padding: 13px 14px; border: 1px solid transparent; border-radius: 12px; background: var(--carte-2); width: 100%; transition: border-color .15s, box-shadow .15s; }
-  input::placeholder, textarea::placeholder { color: #6e6e73; }
-  textarea { resize: vertical; min-height: 70px; }
-  input:focus, textarea:focus { outline: none; border-color: var(--vert-vif); box-shadow: 0 0 0 3px rgba(48,209,88,.25); }
-
-  .outils-sports { display: flex; justify-content: space-between; align-items: center; margin: -4px 0 12px; font-size: 13px; color: var(--gris); }
+  label.titre { font-size: 14px; font-weight: 600; color: var(--texte); }
+  label.titre em { color: var(--discret); font-style: normal; font-weight: 400; }
+  input[type=text], input[type=email], textarea { font: inherit; font-size: 16px; color: var(--texte); padding: 13px 15px; border: 1px solid var(--bord); border-radius: 12px; background: var(--carte-2); width: 100%; transition: border-color .15s, box-shadow .15s; }
+  input::placeholder, textarea::placeholder { color: var(--discret); }
+  textarea { resize: vertical; min-height: 80px; }
+  input:focus, textarea:focus { outline: none; border-color: var(--vert-vif); box-shadow: 0 0 0 3px rgba(52,211,106,.2); }
+  .outils-sports { display: flex; justify-content: space-between; align-items: center; margin: -6px 0 14px; font-size: 14px; color: var(--doux); }
   .outils-sports button { background: none; border: 0; color: var(--vert-vif); font: inherit; font-weight: 600; cursor: pointer; padding: 0; }
-  .sports { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
-  .famille { grid-column: 1 / -1; font-size: 13px; font-weight: 600; color: var(--gris); margin: 12px 0 0; }
+  .sports { display: flex; flex-wrap: wrap; gap: 8px; }
+  .famille { flex-basis: 100%; font-size: 12px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--discret); margin: 14px 0 2px; }
   .famille:first-child { margin-top: 0; }
-  .tuile { position: relative; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; background: var(--carte-2); border-radius: 12px; padding: 12px 14px; font-weight: 600; font-size: 15px; transition: background .12s, transform .1s; }
-  .tuile::before { content: ""; width: 10px; height: 10px; border-radius: 5px; background: var(--c); flex-shrink: 0; }
-  .tuile:active { transform: scale(.98); }
+  .tuile { position: relative; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; background: var(--carte-2); border: 1px solid var(--bord); border-radius: 999px; padding: 9px 15px; font-weight: 600; font-size: 15px; transition: background .12s, border-color .12s; }
+  .tuile::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
+  .tuile:hover { border-color: rgba(255,255,255,.22); }
   .tuile input { position: absolute; opacity: 0; pointer-events: none; }
-  .tuile .nom-sport { white-space: nowrap; }
-  .tuile .coche { margin-left: auto; width: 20px; height: 20px; border-radius: 10px; border: 1.5px solid #636366; flex-shrink: 0; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: transparent; }
-  .tuile.active { background: var(--c); }
+  .tuile .coche { display: none; }
+  .tuile.active { background: var(--c); border-color: var(--c); }
   .tuile.active::before { background: #fff; }
-  .tuile.active .coche { background: #fff; border-color: #fff; color: var(--c); }
-  .tuile input:focus-visible ~ .coche { outline: 2px solid var(--vert-vif); outline-offset: 2px; }
-
+  .tuile input:focus-visible + .nom-sport { outline: 2px solid var(--vert-vif); outline-offset: 4px; border-radius: 4px; }
   .choix-format { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .format { background: var(--carte-2); border: 2px solid transparent; border-radius: 14px; padding: 14px 16px; cursor: pointer; position: relative; }
+  .format { background: var(--carte-2); border: 2px solid transparent; border-radius: 16px; padding: 16px 18px; cursor: pointer; position: relative; }
   .format input { position: absolute; opacity: 0; }
   .format b { display: block; font-size: 17px; }
-  .format span { font-size: 13px; color: var(--gris); }
-  .format.active { border-color: var(--vert-vif); }
-
-  .consentement { display: flex; gap: 12px; align-items: flex-start; background: var(--carte-2); border-radius: 12px; padding: 14px; font-size: 14px; color: var(--gris-clair); cursor: pointer; }
-  .consentement input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--vert-vif); flex-shrink: 0; }
-  .rgpd { font-size: 13px; color: var(--gris); margin-top: 10px; }
-  .rgpd summary { cursor: pointer; font-weight: 600; }
+  .format span { font-size: 14px; color: var(--doux); }
+  .format.active { border-color: var(--vert-vif); background: rgba(52,211,106,.07); }
+  .consentement { display: flex; gap: 12px; align-items: flex-start; background: var(--carte-2); border-radius: 14px; padding: 15px; font-size: 15px; color: var(--doux); cursor: pointer; }
+  .consentement input { width: 19px; height: 19px; margin-top: 2px; accent-color: var(--vert-vif); flex-shrink: 0; }
+  .rgpd { font-size: 14px; color: var(--discret); margin-top: 12px; }
+  .rgpd summary { cursor: pointer; font-weight: 600; color: var(--doux); }
   .rgpd ul { margin: 8px 0 0; padding-left: 18px; }
-
-  .erreur { color: var(--rouge); font-size: 13px; font-weight: 600; min-height: 18px; margin-top: 6px; }
+  .erreur { color: var(--rouge); font-size: 14px; font-weight: 600; min-height: 20px; margin-top: 8px; }
   .champ-cache { position: absolute; left: -9999px; }
-  .envoyer { width: 100%; margin-top: 22px; font-size: 18px; padding: 17px; background: var(--vert-vif); color: var(--noir); }
-  .envoyer:hover { background: #4ade72; }
+  .envoyer { width: 100%; margin-top: 22px; font-size: 18px; padding: 17px; }
   .envoyer[disabled] { opacity: .7; cursor: wait; transform: none; }
   .rond-envoi { width: 18px; height: 18px; border: 2.5px solid rgba(0,0,0,.25); border-top-color: #000; border-radius: 50%; animation: tourne .7s linear infinite; display: none; }
   .envoyer[disabled] .rond-envoi { display: inline-block; }
   @keyframes tourne { to { transform: rotate(360deg); } }
-
-  /* Écran de bienvenue */
-  .bienvenue { display: none; text-align: center; padding: 18px 0 8px; }
+  .bienvenue { display: none; text-align: center; padding: 24px 0 12px; }
   .bienvenue.visible { display: block; animation: apparait .4s ease; }
-  .bienvenue h3 { font-size: 32px; font-weight: 800; letter-spacing: -.5px; line-height: 1.1; margin: 8px 0 10px; }
+  .bienvenue h3 { font-size: 30px; font-weight: 800; line-height: 1.15; margin: 10px 0 12px; }
   .bienvenue h3 .accent { color: var(--vert-vif); }
-  .bienvenue p { color: var(--gris-clair); margin: 0 auto; max-width: 460px; font-size: 16px; }
-  .recap { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0 6px; }
-  .recap span { background: var(--c); color: #fff; font-size: 14px; font-weight: 600; padding: 6px 13px; border-radius: 999px; }
+  .bienvenue p { color: var(--doux); margin: 0 auto; max-width: 440px; }
+  .recap { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 22px 0 6px; }
+  .recap span { background: var(--c); color: #fff; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 999px; }
   @keyframes apparait { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-
-  .demo { max-width: 780px; margin: 0 0 14px; background: rgba(255,159,10,.14); color: #ffd28a; border-radius: 12px; padding: 11px 14px; font-size: 14px; display: none; }
-
-  /* ---------- Médias ---------- */
-  .medias { display: flex; flex-wrap: wrap; gap: 8px; }
-  .medias span { background: var(--carte); border-radius: 999px; padding: 9px 16px; font-weight: 600; font-size: 15px; }
+  .demo { margin: 0 0 18px; background: rgba(255,184,0,.1); border: 1px solid rgba(255,184,0,.25); color: #ffd27a; border-radius: 14px; padding: 12px 16px; font-size: 14.5px; display: none; }
 
   /* ---------- FAQ ---------- */
-  .faq { max-width: 780px; background: var(--carte); border-radius: 20px; padding: 4px 20px; }
-  .faq details { border-bottom: 1px solid var(--separateur); padding: 16px 0; }
+  .faq { background: var(--carte); border: 1px solid var(--bord); border-radius: var(--rayon); padding: 6px 26px; }
+  .faq details { border-bottom: 1px solid var(--bord); padding: 20px 0; }
   .faq details:last-child { border-bottom: 0; }
-  .faq summary { cursor: pointer; font-size: 17px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  .faq summary { cursor: pointer; font-size: 17px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: "›"; color: var(--gris); font-size: 22px; line-height: 1; transition: transform .2s; }
-  .faq details[open] summary::after { transform: rotate(90deg); }
-  .faq p { color: var(--gris-clair); margin: 10px 0 0; font-size: 15px; }
+  .faq summary::after { content: "+"; flex-shrink: 0; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--carte-2); color: var(--vert-vif); font-size: 18px; transition: transform .2s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq p { color: var(--doux); margin: 12px 0 0; font-size: 16px; }
 
-  footer { margin-top: 64px; text-align: center; color: var(--gris); font-size: 13px; padding: 26px 20px 40px; }
-  footer .logo { font-size: 30px; display: inline-block; margin-bottom: 6px; color: var(--blanc); }
+  /* ---------- Bas de page ---------- */
+  .appel { margin-top: 96px; border-radius: 28px; padding: 56px 32px; text-align: center; background: linear-gradient(135deg, #1f8a4c, #0c3b20); }
+  .appel h2 { margin-top: 0; }
+  .appel p { color: rgba(255,255,255,.8); margin: 0 0 28px; font-size: 18px; }
+  .appel .bouton { background: #fff; color: #07210f; }
+  footer { text-align: center; color: var(--discret); font-size: 14px; padding: 56px 24px 48px; }
 
-  @media (max-width: 860px) {
-    .hero { grid-template-columns: 1fr; gap: 30px; }
-    .atouts { grid-template-columns: 1fr; }
+  @media (max-width: 960px) {
+    .hero .conteneur, .zone-inscription { grid-template-columns: 1fr; }
+    .grille { grid-template-columns: 1fr 1fr; }
+    .etapes { grid-template-columns: 1fr; }
+    .colle { position: static; }
+    .menu a:not(.bouton) { display: none; }
   }
   @media (max-width: 560px) {
-    .nav-lien { padding: 8px 14px; font-size: 14px; }
-    .carte-form { padding: 20px 14px; border-radius: 20px; }
-    .champs, .choix-format { grid-template-columns: 1fr; }
-    .sports { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .tuile { min-width: 0; padding: 11px 10px; font-size: 14px; }
-    .tuile .coche { display: none; }
-    .tuile .nom-sport { white-space: normal; min-width: 0; }
-    .widget .match { grid-template-columns: 58px 40px 1fr 40px 58px; }
+    body { font-size: 16px; }
+    section { padding-top: 72px; }
+    .hero { padding-top: 44px; }
+    .grille, .champs, .choix-format { grid-template-columns: 1fr; }
+    .carte-form { padding: 22px 16px; }
+    .telephone { width: 290px; }
+    .ecran { height: 540px; }
+    .faq { padding: 4px 18px; }
+    .appel { padding: 44px 20px; }
   }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
 
-<div class="entete">
-  <div class="barre-haut"><div class="conteneur"><span id="date-apercu">Ce matin</span><span>Newsletter gratuite</span></div></div>
-  <header class="titre-journal">
-    <div class="conteneur">
-      <a class="logo" href="#">Le Brief</a>
-      <a class="nav-lien" href="#inscription">S'inscrire</a>
-    </div>
-  </header>
-
+<header class="barre">
   <div class="conteneur">
-    <section class="hero">
-      <div>
-        <span class="surtitre">Chaque matin dans ta boîte mail</span>
-        <h1>Le sport qui te concerne, sans rien rater<span class="point">.</span></h1>
-        <p class="chapo">
-          Les infos à retenir sur <b>tes</b> sports, sélectionnées parmi les grands médias sportifs,
-          résumées en français, avec les scores de la veille et le programme du jour.
-        </p>
-        <a class="bouton" href="#inscription">Je m'inscris</a>
-        <div class="preuves">
-          <span>100 % gratuit</span>
-          <span>Zéro pub</span>
-          <span>Désinscription en 1 clic</span>
-        </div>
-      </div>
+    <a class="logo" href="#"><i>B</i>Le Brief</a>
+    <nav class="menu">
+      <a href="#contenu">Ce que tu reçois</a>
+      <a href="#methode">Notre méthode</a>
+      <a href="#faq">Questions</a>
+      <a class="bouton petit" href="#inscription">S'inscrire</a>
+    </nav>
+  </div>
+</header>
 
-      <div class="apercu" aria-hidden="true">
-        <div class="widget" style="background:#0e4a1f;">
-          <div class="ligue">Ligue des nations</div>
-          <div class="match">
-            <div class="equipe"><div class="rond">BEL</div>Belgique</div>
-            <div class="score perdant">1</div><div class="statut">Final</div><div class="score">2</div>
-            <div class="equipe"><div class="rond">FRA</div>France</div>
-          </div>
-        </div>
-        <div class="widget" style="background:#721418;">
-          <div class="ligue">Top 14</div>
-          <div class="match">
-            <div class="equipe"><div class="rond">TOU</div>Toulouse</div>
-            <div class="score">40</div><div class="statut">Final</div><div class="score perdant">18</div>
-            <div class="equipe"><div class="rond">MON</div>Montpellier</div>
-          </div>
-        </div>
-        <div class="widget-info">
-          <span class="surtitre"><span class="pastille"></span>Football · À la une</span>
-          <b>Le Classique tient toutes ses promesses</b>
-        </div>
+<div class="hero">
+  <div class="conteneur">
+    <div>
+      <span class="surtitre" id="date-apercu">Chaque matin</span>
+      <h1>Le sport qui compte, <em>chaque matin à 8h.</em></h1>
+      <p class="chapo">
+        Les <b>actus les plus importantes</b> de tes sports, les <b>scores de la veille</b> et le
+        <b>programme du jour</b>. Sélectionnées parmi les grands médias sportifs français, lues en 3 minutes.
+      </p>
+      <div class="actions">
+        <a class="bouton" href="#inscription">Je m'inscris gratuitement</a>
+        <a class="bouton secondaire" href="#contenu">Voir ce que je reçois</a>
       </div>
-    </section>
+      <div class="atouts-courts">
+        <span>100 % gratuit</span>
+        <span>Zéro pub</span>
+        <span>Désinscription en 1 clic</span>
+      </div>
+    </div>
+
+    <div class="telephone" aria-hidden="true">
+      <div class="ecran">
+        <div class="ecran-tete"><b>Le Brief</b><span>Mardi · 8 infos · 3 min de lecture</span></div>
+        <div class="mini">
+          <div class="mini-photo"></div>
+          <div class="mini-corps">
+            <span class="pastille">À la une</span><span class="pastille sport">Football</span>
+            <b>Le Real écrase le Barça 4-0 et prend le large en Liga</b>
+          </div>
+        </div>
+        <div class="mini-score">
+          <small>Top 14</small>
+          <div class="mini-ligne">
+            <div><span class="rond">TOU</span>Toulouse</div>
+            <div><strong>34</strong><strong class="perdant">14</strong></div>
+            <div><span class="rond">RAC</span>Racing 92</div>
+          </div>
+        </div>
+        <div class="mini-chiffre"><strong>45</strong>points pour Wembanyama, record en carrière</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<main>
-  <div class="conteneur">
+<main class="conteneur">
 
-    <section class="atouts">
-      <div class="atout"><div class="gros-num">19</div><h3>Sports au choix</h3><p>Foot, rugby, NFL, F1, cyclisme, MMA… Tu coches les tiens, on ne te parle que de ça.</p></div>
-      <div class="atout"><div class="gros-num">10</div><h3>Infos par jour</h3><p>Une grande info à la une, les autres en résumé ou en brève. Et les scores de la veille.</p></div>
-      <div class="atout"><div class="gros-num">100%</div><h3>Médias sportifs</h3><p>Uniquement des rédactions sportives reconnues, traduites si besoin, avec le lien vers l'article original.</p></div>
-    </section>
+  <section id="contenu">
+    <span class="surtitre">Ce que tu reçois</span>
+    <h2>Tout l'essentiel, en un seul mail</h2>
+    <p class="intro">Fini de passer d'une appli à l'autre : Le Brief rassemble chaque matin ce qu'il faut savoir sur tes sports.</p>
+    <div class="grille">
+      <div class="bloc">
+        <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></div>
+        <h3>Les actus qui comptent</h3>
+        <p>6 à 9 infos par jour, au moins une par sport choisi. Résumées clairement, avec le lien vers l'article complet.</p>
+      </div>
+      <div class="bloc">
+        <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16M3 12h18"/></svg></div>
+        <h3>Scores et programme</h3>
+        <p>Les résultats de la veille avec les logos des équipes, et les grands matchs du jour à l'heure de Paris.</p>
+      </div>
+      <div class="bloc">
+        <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Le chiffre et le quiz</h3>
+        <p>Le chiffre le plus fou du jour, et une petite question pour tester tes connaissances. Réponse en bas du mail.</p>
+      </div>
+      <div class="bloc">
+        <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Lu en 3 minutes</h3>
+        <p>Une Une avec photo, des résumés courts, une mise en page pensée pour le téléphone. L'idéal au réveil.</p>
+      </div>
+    </div>
+  </section>
 
-    <section class="section" id="inscription">
-      <h2 class="rubrique">Rejoins le Brief</h2>
-      <p class="intro">30 secondes pour t'inscrire. Ta première newsletter arrive un prochain matin.</p>
+  <section id="methode">
+    <span class="surtitre">Notre méthode</span>
+    <h2>Comment on choisit les infos</h2>
+    <p class="intro">Pas d'infos anecdotiques ni de contenus « pièges à clics » : seulement ce dont tout le monde parlera aujourd'hui.</p>
+    <div class="etapes">
+      <div class="etape-info"><h3>On lit les médias sportifs</h3><p>Chaque nuit, des centaines d'articles de L'Équipe, RMC Sport, Le Figaro, Rugbyrama et d'autres rédactions sont passés en revue.</p></div>
+      <div class="etape-info"><h3>On croise les sources</h3><p>Une info reprise par plusieurs médias est une info importante. Les plus citées passent en premier, la plus grosse fait la Une.</p></div>
+      <div class="etape-info"><h3>On résume en français</h3><p>Chaque info est résumée en quelques lignes claires, avec ce qu'il faut retenir et le lien vers l'article original.</p></div>
+    </div>
+  </section>
 
-      <div class="demo" id="bandeau-demo">
-        <b>Mode démo</b> : la page n'est pas encore reliée au tableau des inscriptions.
-        Les inscriptions ne sont pas enregistrées.
+  <section id="inscription">
+    <div class="zone-inscription">
+      <div class="colle">
+        <span class="surtitre">Inscription</span>
+        <h2>Rejoins Le Brief</h2>
+        <p class="intro" style="margin-bottom:0">30 secondes pour t'inscrire. Ta première newsletter arrive un prochain matin, vers 8h.</p>
+        <ul>
+          <li>Tu choisis tes sports, on ne te parle que de ça</li>
+          <li>Aucune pub, aucune revente de tes données</li>
+          <li>Désinscription en un clic, quand tu veux</li>
+        </ul>
       </div>
 
-      <div class="carte-form">
-        <form id="formulaire" novalidate>
-          <p class="etape"><span class="n">1</span> Qui es-tu ?</p>
-          <div class="champs">
-            <div class="champ">
-              <label class="titre" for="prenom">Prénom</label>
-              <input type="text" id="prenom" name="prenom" autocomplete="given-name" required maxlength="50">
+      <div>
+        <div class="demo" id="bandeau-demo">
+          <b>Mode démo :</b> la page n'est pas encore reliée au tableau des inscriptions. Les inscriptions ne sont pas enregistrées.
+        </div>
+        <div class="carte-form">
+          <form id="formulaire" novalidate>
+            <p class="etape"><span class="n">1</span> Qui es-tu ?</p>
+            <div class="champs">
+              <div class="champ">
+                <label class="titre" for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" autocomplete="given-name" required maxlength="50">
+              </div>
+              <div class="champ">
+                <label class="titre" for="nom">Nom <em>(facultatif)</em></label>
+                <input type="text" id="nom" name="nom" autocomplete="family-name" maxlength="50">
+              </div>
+              <div class="champ">
+                <label class="titre" for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required maxlength="120" placeholder="prenom.nom@gmail.com">
+              </div>
+              <div class="champ">
+                <label class="titre" for="promo">Formation / promo <em>(facultatif)</em></label>
+                <input type="text" id="promo" name="promo" maxlength="80" placeholder="M2 Marketing Vente">
+              </div>
             </div>
-            <div class="champ">
-              <label class="titre" for="nom">Nom <em>(facultatif)</em></label>
-              <input type="text" id="nom" name="nom" autocomplete="family-name" maxlength="50">
+            <div class="erreur" id="erreur-identite"></div>
+
+            <p class="etape"><span class="n">2</span> Tes sports</p>
+            <div class="outils-sports">
+              <span id="compteur-sports">Choisis autant de sports que tu veux.</span>
+              <button type="button" id="tout-effacer">Tout décocher</button>
             </div>
-            <div class="champ">
-              <label class="titre" for="email">Email</label>
-              <input type="email" id="email" name="email" autocomplete="email" required maxlength="120" placeholder="prenom.nom@gmail.com">
+            <div class="sports" id="sports"></div>
+            <div class="erreur" id="erreur-sports"></div>
+
+            <div class="champs" style="margin-top:10px">
+              <div class="champ large">
+                <label class="titre" for="equipes">Tes équipes ou joueurs favoris <em>(facultatif)</em></label>
+                <textarea id="equipes" name="equipes" maxlength="300" placeholder="PSG, Stade Toulousain, Chiefs, Wembanyama…"></textarea>
+              </div>
+              <div class="champ large">
+                <label class="titre" for="suggestion">Un sport qui manque ? <em>(facultatif)</em></label>
+                <input type="text" id="suggestion" name="suggestion" maxlength="80" placeholder="Padel, esport, escalade…">
+              </div>
             </div>
-            <div class="champ">
-              <label class="titre" for="promo">Formation / promo <em>(facultatif)</em></label>
-              <input type="text" id="promo" name="promo" maxlength="80" placeholder="M2 Marketing Vente">
+
+            <p class="etape"><span class="n">3</span> Ton format</p>
+            <div class="choix-format">
+              <label class="format">
+                <input type="radio" name="nombre" value="5">
+                <b>Express</b><span>5 infos, 2 minutes de lecture</span>
+              </label>
+              <label class="format active">
+                <input type="radio" name="nombre" value="10" checked>
+                <b>L'édition complète</b><span>Les actus, les scores, le chiffre et le quiz</span>
+              </label>
             </div>
-          </div>
-          <div class="erreur" id="erreur-identite"></div>
 
-          <p class="etape"><span class="n">2</span> Tes sports</p>
-          <div class="outils-sports">
-            <span id="compteur-sports">Choisis autant de sports que tu veux.</span>
-            <button type="button" id="tout-effacer">Tout décocher</button>
-          </div>
-          <div class="sports" id="sports"></div>
-          <div class="erreur" id="erreur-sports"></div>
-
-          <div class="champ large" style="margin-top:14px;">
-            <label class="titre" for="suggestion">Un sport qui manque ? <em>(facultatif)</em></label>
-            <input type="text" id="suggestion" name="suggestion" maxlength="80" placeholder="Padel, esport, escalade…">
-          </div>
-
-          <div class="champ large" style="margin-top:14px;">
-            <label class="titre" for="equipes">Tes équipes ou joueurs favoris <em>(facultatif)</em></label>
-            <textarea id="equipes" name="equipes" maxlength="300" placeholder="PSG, Stade Toulousain, Chiefs, Wembanyama…"></textarea>
-          </div>
-
-          <p class="etape"><span class="n">3</span> Ton format</p>
-          <div class="choix-format">
-            <label class="format">
-              <input type="radio" name="nombre" value="5">
-              <b>Express</b><span>5 infos, lecture rapide</span>
+            <p class="etape"><span class="n">4</span> C'est parti</p>
+            <label class="consentement">
+              <input type="checkbox" id="consentement">
+              <span>J'accepte de recevoir <b style="color:var(--texte)">Le Brief</b> par email et que mes informations soient utilisées uniquement à cette fin.</span>
             </label>
-            <label class="format active">
-              <input type="radio" name="nombre" value="10" checked>
-              <b>L'édition complète</b><span>10 infos + résultats et programme</span>
-            </label>
+            <details class="rgpd">
+              <summary>Comment sont utilisées mes données ?</summary>
+              <ul>
+                <li>Uniquement pour t'envoyer Le Brief selon les sports choisis.</li>
+                <li>Jamais vendues, partagées ou utilisées pour de la publicité.</li>
+                <li>Conservées tant que tu es inscrit·e, supprimées quand tu te désinscris.</li>
+                <li>Désinscription en un clic via le lien présent dans chaque newsletter, ou en répondant simplement à un email.</li>
+              </ul>
+            </details>
+            <div class="erreur" id="erreur-consentement"></div>
+
+            <input class="champ-cache" type="text" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <button class="bouton envoyer" type="submit" id="bouton-envoyer">
+              <span class="rond-envoi"></span><span id="texte-bouton">Je m'inscris</span>
+            </button>
+            <div class="erreur" id="erreur-envoi" style="text-align:center;"></div>
+          </form>
+
+          <div class="bienvenue" id="bienvenue">
+            <span class="surtitre">Inscription confirmée</span>
+            <h3 id="titre-bienvenue">Bienvenue dans Le Brief !</h3>
+            <p>Ta première newsletter arrive un prochain matin, vers 8h. Pense à vérifier tes spams la première fois.</p>
+            <div class="recap" id="recap"></div>
           </div>
-
-          <p class="etape"><span class="n">4</span> C'est parti</p>
-          <label class="consentement">
-            <input type="checkbox" id="consentement">
-            <span>J'accepte de recevoir <b>Le Brief</b> par email et que mes informations soient utilisées uniquement à cette fin.</span>
-          </label>
-          <details class="rgpd">
-            <summary>Comment sont utilisées mes données ?</summary>
-            <ul>
-              <li>Uniquement pour t'envoyer Le Brief selon les sports choisis.</li>
-              <li>Jamais vendues, partagées ou utilisées pour de la publicité.</li>
-              <li>Conservées tant que tu es inscrit·e, supprimées quand tu te désinscris.</li>
-              <li>Désinscription en un clic via le lien présent dans chaque newsletter, ou en répondant simplement à un email.</li>
-            </ul>
-          </details>
-          <div class="erreur" id="erreur-consentement"></div>
-
-          <input class="champ-cache" type="text" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-          <button class="bouton envoyer" type="submit" id="bouton-envoyer">
-            <span class="rond-envoi"></span><span id="texte-bouton">Je m'inscris</span>
-          </button>
-          <div class="erreur" id="erreur-envoi" style="text-align:center;"></div>
-        </form>
-
-        <div class="bienvenue" id="bienvenue">
-          <span class="surtitre">Inscription confirmée</span>
-          <h3 id="titre-bienvenue">Bienvenue dans le Brief !</h3>
-          <p>Ta première newsletter arrive un prochain matin. Pense à vérifier tes spams la première fois.</p>
-          <div class="recap" id="recap"></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section">
-      <h2 class="rubrique">Nos sources</h2>
-      <p class="intro">Uniquement des rédactions sportives. Chaque info renvoie vers l'article complet.</p>
-      <div class="medias">
-        <span>L'Équipe</span><span>RMC Sport</span><span>BBC Sport</span><span>CBS Sports</span>
-        <span>Motorsport.com</span><span>Autosport</span><span>Cyclingnews</span><span>MLB.com</span><span>BasketUSA</span>
-      </div>
-    </section>
+  <section class="centre">
+    <span class="surtitre">Nos sources</span>
+    <h2>Des rédactions sportives reconnues</h2>
+    <p class="intro">Chaque info renvoie vers l'article complet du média qui l'a publiée.</p>
+    <div class="medias">
+      <span>L'Équipe</span><span>RMC Sport</span><span>Le Figaro</span><span>Rugbyrama</span>
+      <span>Motorsport.com</span><span>BasketUSA</span><span>TrashTalk</span><span>CBS Sports</span>
+    </div>
+  </section>
 
-    <section class="section">
-      <h2 class="rubrique">Questions fréquentes</h2>
-      <p class="intro">Tout ce qu'il faut savoir avant de t'inscrire.</p>
-      <div class="faq">
-        <details><summary>C'est vraiment gratuit ?</summary><p>Oui, totalement. Pas de pub, pas d'abonnement, pas de carte bancaire.</p></details>
-        <details><summary>D'où viennent les infos ?</summary><p>Uniquement de médias sportifs reconnus : L'Équipe, RMC Sport, BBC Sport, CBS Sports, Motorsport.com, Autosport, Cyclingnews, MLB.com… Chaque info est résumée en français et renvoie vers l'article original.</p></details>
-        <details><summary>Est-ce que je vais recevoir les mêmes infos plusieurs jours de suite ?</summary><p>Non : le Brief garde en mémoire ce qui a déjà été envoyé pendant 30 jours et ne te renvoie jamais une info que tu connais déjà.</p></details>
-        <details><summary>Je peux changer mes sports plus tard ?</summary><p>Oui : réinscris-toi simplement avec la même adresse email, tes choix seront mis à jour.</p></details>
-        <details><summary>Comment me désinscrire ?</summary><p>Un lien de désinscription se trouve en bas de chaque newsletter. Un clic et c'est fait.</p></details>
-      </div>
-    </section>
+  <section id="faq" class="etroit" style="margin:0 auto">
+    <div class="centre"><span class="surtitre">Questions fréquentes</span><h2>Tout ce qu'il faut savoir</h2></div>
+    <div class="faq" style="margin-top:32px">
+      <details><summary>C'est vraiment gratuit ?</summary><p>Oui, totalement. Pas de pub, pas d'abonnement, pas de carte bancaire.</p></details>
+      <details><summary>À quelle heure je la reçois ?</summary><p>Chaque matin, vers 8h. Juste à temps pour le café ou le trajet.</p></details>
+      <details><summary>Comment sont choisies les infos ?</summary><p>On lit les grands médias sportifs français et on croise les sources : une info reprise par plusieurs rédactions est forcément importante. Tu reçois au moins une actu pour chacun de tes sports, puis les autres grosses infos du jour.</p></details>
+      <details><summary>Est-ce que je vais recevoir les mêmes infos plusieurs jours de suite ?</summary><p>Non : Le Brief garde en mémoire ce qui a déjà été envoyé pendant 30 jours et ne te renvoie jamais une info que tu connais déjà.</p></details>
+      <details><summary>Je peux changer mes sports plus tard ?</summary><p>Oui : réinscris-toi simplement avec la même adresse email, tes choix seront mis à jour.</p></details>
+      <details><summary>Comment me désinscrire ?</summary><p>Un lien de désinscription se trouve en bas de chaque newsletter. Un clic et c'est fait.</p></details>
+    </div>
+  </section>
+
+  <div class="appel">
+    <h2>Ton sport, sans rien rater.</h2>
+    <p>Rejoins Le Brief et reçois l'essentiel chaque matin.</p>
+    <a class="bouton" href="#inscription">Je m'inscris gratuitement</a>
   </div>
 </main>
 
 <footer>
-  <div class="logo">Le Brief</div>
+  <a class="logo" href="#" style="justify-content:center;margin-bottom:10px"><i>B</i>Le Brief</a>
   <div>Projet étudiant · newsletter sportive gratuite et personnalisée</div>
 </footer>
 
@@ -397,9 +483,9 @@
   const modeDemo = !URL_INSCRIPTION;
   if (modeDemo) $("bandeau-demo").style.display = "block";
 
-  // Date du jour dans le bandeau du haut (ex : « Lundi 28 septembre 2026 »)
-  const aujourdhui = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  $("date-apercu").textContent = aujourdhui.charAt(0).toUpperCase() + aujourdhui.slice(1);
+    // Le jour de la semaine dans l'accroche (ex : « Mardi matin »)
+  const jour = new Date().toLocaleDateString("fr-FR", { weekday: "long" });
+  $("date-apercu").textContent = jour.charAt(0).toUpperCase() + jour.slice(1) + " matin";
 
   // Création des tuiles de sports, famille par famille
   const zoneSports = $("sports");
